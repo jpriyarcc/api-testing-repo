@@ -1,0 +1,2 @@
+ERROR    test_api:test_api.py:93 Error in test_resend_verification: assert 400 == 200
+ +  where 400 = <Response [400]>.status_code

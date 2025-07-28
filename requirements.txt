@@ -1,0 +1,7 @@
+pytest
+requests
+pytest-html
+pytest-dotenv
+allure-pytest
+PyYAML
+jsonschema

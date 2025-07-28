@@ -1,0 +1,925 @@
+{
+  "register_user": [
+    {
+      "email": "use5@example.com",
+      "password": "StrongPass456!",
+      "expected_status": 201,
+      "expected_error_code": null
+    },
+    {
+      "email": "existing_user@example.com",
+      "password": "SecurePass123!",
+      "expected_status": 409,
+      "expected_error_code": "E409"
+    },
+    {
+      "email": "not-an-email",
+      "password": "short",
+      "expected_status": 422,
+      "expected_error_code": null
+    }
+  ],
+  "verify_email": [
+    {
+      "token": "689B7H55YbaCmMXmtvjuaiztXaq0-riQuDW8sCn86UjyyUvfP5jtNAEvAtZF5_yHtRZhR0OyxMoC6aL53LgMqg",
+      "expected_status": 200,
+      "expected_key": "status",
+      "expected_value": 200
+    },
+    {
+      "token": "expired_token_here",
+      "expected_status": 400,
+      "expected_key": "error_code",
+      "expected_value": "E498"
+    },
+    {
+      "token": "nonexistent_user_token",
+      "expected_status": 404,
+      "expected_key": "error_code",
+      "expected_value": "E404"
+    },
+    {
+      "token": "",
+      "expected_status": 422,
+      "expected_key": null,
+      "expected_value": null
+    }
+  ],
+  "resend_verification": [
+    {
+      "email": "use5@example.com",
+      "expected_status": 200,
+      "expected_key": "message",
+      "expected_value": "Verification link resent successfully"
+    },
+    {
+      "email": "already_verified@example.com",
+      "expected_status": 400,
+      "expected_key": "error_code",
+      "expected_value": "E422"
+    },
+    {
+      "email": "nonexistent_user@example.com",
+      "expected_status": 404,
+      "expected_key": "error_code",
+      "expected_value": "E404"
+    }
+  ],
+  "forgot_password": [
+    {
+      "email": "use5@example.com",
+      "expected_status": 200,
+      "expected_key": "message",
+      "expected_value": "Password reset link sent successfully"
+    },
+    {
+      "email": "nonexistent_user@example.com",
+      "expected_status": 404,
+      "expected_key": "error_code",
+      "expected_value": "E404"
+    },
+    {
+      "email": "not-an-email",
+      "expected_status": 422,
+      "expected_key": null,
+      "expected_value": null
+    }
+  ],
+  "reset_password": [
+    {
+      "token": "valid_token_here",
+      "password": "SecurePass123!",
+      "cpassword": "SecurePass123!",
+      "expected_status": 200,
+      "expected_key": "success",
+      "expected_value": true
+    },
+    {
+      "token": "invalid_or_expired_token",
+      "password": "NewStrongPass123!",
+      "cpassword": "NewStrongPass123!",
+      "expected_status": 400,
+      "expected_key": "error_code",
+      "expected_value": "E498"
+    },
+    {
+      "token": "valid_token_here",
+      "password": "NewStrongPass123!",
+      "cpassword": "DifferentPass!",
+      "expected_status": 422,
+      "expected_key": null,
+      "expected_value": null
+    }
+  ],
+  "login": [
+    {
+      "email": "user2@example.com",
+      "password": "SecurePass123!",
+      "expected_status": 200
+    }
+  ],
+  "refresh_token": [
+    {
+      "expected_status": 200
+    }
+  ],
+  "logout": [
+    {
+      "expected_status": 200,
+      "expected_key": "message",
+      "expected_value": "Logout successful"
+    }
+  ],
+  "update_management_user": [
+  {
+    "payload": {
+      "first_name": "UpdatedFirst",
+      "last_name": "UpdatedLast",
+      "phone_number": "+1234567890"
+    },
+    "expected_status": 200
+  },
+  {
+    "payload": {
+      "first_name": "A very very long name exceeding the limit"
+    },
+    "expected_status": 422
+  },
+  {
+    "payload": {
+      "first_name": "UpdatedFirst"
+    },
+    "expected_status": 401
+  }
+],
+"list_management_users": [
+    {
+      "params": {},
+      "expected_status": 200
+    },
+    {
+      "params": {"email": "nonexistent@example.com"},
+      "expected_status": 200
+    },
+    {
+      "params": {"limit": 5, "offset": 0},
+      "expected_status": 200
+    }
+  ],
+  "test_update_and_delete_management_role": [
+    {
+      "update_payload": {
+        "name": "Updated Admin",
+        "description": "Updated description"
+      },
+      "expected_status": 200
+    },
+    {
+      "update_payload": {
+        "name": "",
+        "description": "Invalid name update"
+      },
+      "expected_status": 422
+    }
+  ],
+  "test_list_roles": [
+    {
+      "page": 1,
+      "page_size": 20,
+      "expected_status": 200
+    },
+    {
+      "page": 2,
+      "page_size": 10,
+      "expected_status": 200
+    },
+    {
+      "page": 0,
+      "page_size": 20,
+      "expected_status": 422
+    },
+    {
+      "page": 1,
+      "page_size": 0,
+      "expected_status": 422
+    }
+  ],
+  "test_assign_permission_to_role": [
+    {
+      "payload": {
+        "role_id": "123e4567-e89b-12d3-a456-426614174000",
+        "permission_id": "123e4567-e89b-12d3-a456-426614174001"
+      },
+      "expected_status": 201
+    },
+    {
+      "payload": {
+        "role_id": "invalid-role-id",
+        "permission_id": "123e4567-e89b-12d3-a456-426614174001"
+      },
+      "expected_status": 422
+    },
+    {
+      "payload": {
+        "role_id": "",
+        "permission_id": ""
+      },
+      "expected_status": 422
+    }
+  ],
+  "test_role_permission_get_update_delete_flow": [
+    {
+      "role_id": "VALID_ROLE_UUID",
+      "permission_id": "VALID_PERMISSION_UUID"
+    }
+  ],
+  "test_list_role_permissions": [
+    { "page": 1, "page_size": 10 },
+    { "page": 2, "page_size": 5 },
+    { "page": 0, "page_size": 10 },
+    { "page": 1, "page_size": 0 }
+  ],
+  "test_create_management_permission": [
+    {
+      "permission_data": {
+        "name": "manage_users",
+        "description": "Allows managing user accounts"
+      },
+      "expected_status": 201
+    },
+    {
+      "permission_data": {
+        "name": "",
+        "description": "Missing name field"
+      },
+      "expected_status": 422
+    }
+  ],
+  "test_get_permission_by_id": [
+  {
+    "permission_id": "valid-uuid-1234-5678-9012-abcdefabcdef",
+    "expected_status": 200
+  },
+  {
+    "permission_id": "00000000-0000-0000-0000-000000000000",
+    "expected_status": 404
+  },
+  {
+    "permission_id": "invalid-uuid",
+    "expected_status": 422
+  }
+],
+"test_update_permission_by_id": [
+  {
+    "permission_id": "valid-uuid-1111-2222-3333-abcdefabcdef",
+    "update_data": {
+      "code": "gym.update",
+      "description": "Update gym details",
+      "group_id": "123e4567-e89b-12d3-a456-426614174000"
+    },
+    "expected_status": 200
+  },
+  {
+    "permission_id": "00000000-0000-0000-0000-000000000000",
+    "update_data": {
+      "code": "invalid.permission",
+      "description": "Invalid",
+      "group_id": "123e4567-e89b-12d3-a456-426614174000"
+    },
+    "expected_status": 404
+  },
+  {
+    "permission_id": "not-a-valid-uuid",
+    "update_data": {
+      "code": "invalid.uuid",
+      "description": "Invalid UUID test",
+      "group_id": "invalid-group-id"
+    },
+    "expected_status": 422
+  }
+],
+ "test_delete_permission_by_id": [
+    {
+      "permission_id": "valid-uuid-123",
+      "token": "valid_token_here",
+      "expected_status": 204,
+      "expected_error_code": null
+    },
+    {
+      "permission_id": "nonexistent-uuid-456",
+      "token": "valid_token_here",
+      "expected_status": 404,
+      "expected_error_code": "E404"
+    },
+    {
+      "permission_id": "valid-uuid-123",
+      "token": "invalid_token",
+      "expected_status": 401,
+      "expected_error_code": "E401"
+    }
+  ] ,
+"list_management_permissions": [
+    {
+      "page": 1,
+      "page_size": 10,
+      "expected_status": 200
+    },
+    {
+      "page": 0,
+      "page_size": 10,
+      "expected_status": 422
+    },
+    {
+      "page": 1000,
+      "page_size": 5,
+      "expected_status": 200
+    }
+  ],
+  "create_permission_group": [
+    {
+      "group_data": {
+        "name": "Admin Group",
+        "description": "Group for admin permissions"
+      },
+      "expected_status": 201
+    },
+    {
+      "group_data": {
+        "name": "",
+        "description": "Invalid group"
+      },
+      "expected_status": 422
+    }
+  ],
+  "get_management_permission_group": [
+    {
+      "group_id": "123e4567-e89b-12d3-a456-426614174000",
+      "expected_status": 200
+    },
+    {
+      "group_id": "00000000-0000-0000-0000-000000000000",
+      "expected_status": 404
+    },
+    {
+      "group_id": "invalid-uuid",
+      "expected_status": 422
+    }
+  ],
+  "update_permission_group_cases": [
+    {
+      "group_id": "123e4567-e89b-12d3-a456-426614174000",
+      "update_data": {
+        "name": "Updated Group Name",
+        "code": "updated_code",
+        "description": "Updated description"
+      },
+      "expected_status": 200
+    },
+    {
+      "group_id": "00000000-0000-0000-0000-000000000000",
+      "update_data": {
+        "name": "Test",
+        "code": "test_code"
+      },
+      "expected_status": 404
+    },
+    {
+      "group_id": "invalid-uuid",
+      "update_data": {
+        "name": "Test"
+      },
+      "expected_status": 422
+    },
+    {
+      "group_id": "123e4567-e89b-12d3-a456-426614174000",
+      "update_data": {
+        "name": ""
+      },
+      "expected_status": 422
+    }
+  ],
+  "delete_permission_group": [
+    {
+      "group_id": "123e4567-e89b-12d3-a456-426614174000",
+      "expected_status": 200
+    },
+    {
+      "group_id": "00000000-0000-0000-0000-000000000000",
+      "expected_status": 404
+    },
+    {
+      "group_id": "invalid-uuid",
+      "expected_status": 422
+    }
+  ],
+  "list_permission_groups": [
+    { "page": 1, "page_size": 10, "expected_status": 200 },
+    { "page": 2, "page_size": 5, "expected_status": 200 },
+    { "page": 0, "page_size": 20, "expected_status": 422 },
+    { "page": 1, "page_size": 0, "expected_status": 422 }
+  ],
+  "assign_user_role": [
+    {
+      "payload": {
+        "user_id": "123e4567-e89b-12d3-a456-426614174000",
+        "role_id": "abc12345-6789-1234-abcd-1234567890ab"
+      },
+      "expected_status": 201
+    },
+    {
+      "payload": {},
+      "expected_status": 422
+    }
+  ],
+  "get_user_role_assignment": [
+    {
+      "user_id": "123e4567-e89b-12d3-a456-426614174000",
+      "role_id": "abc12345-6789-1234-abcd-1234567890ab",
+      "expected_status": 200
+    },
+    {
+      "user_id": "invalid-user-id",
+      "role_id": "abc12345-6789-1234-abcd-1234567890ab",
+      "expected_status": 422
+    },
+    {
+      "user_id": "123e4567-e89b-12d3-a456-426614174000",
+      "role_id": "nonexistent-role-id",
+      "expected_status": 404
+    }
+  ],
+  "update_user_role_assignment": [
+    {
+      "user_id": "123e4567-e89b-12d3-a456-426614174000",
+      "role_id": "123e4567-e89b-12d3-a456-426614174001",
+      "update_data": {
+        "user_id": "123e4567-e89b-12d3-a456-426614174000",
+        "role_id": "123e4567-e89b-12d3-a456-426614174001"
+      },
+      "expected_status": 200
+    },
+    {
+      "user_id": "123e4567-e89b-12d3-a456-426614174000",
+      "role_id": "nonexistent-role-id",
+      "update_data": {
+        "role_id": "nonexistent-role-id"
+      },
+      "expected_status": 404
+    },
+    {
+      "user_id": "invalid-user-id",
+      "role_id": "123e4567-e89b-12d3-a456-426614174001",
+      "update_data": {
+        "user_id": "invalid-user-id"
+      },
+      "expected_status": 422
+    },
+    {
+      "user_id": "123e4567-e89b-12d3-a456-426614174000",
+      "role_id": "123e4567-e89b-12d3-a456-426614174001",
+      "update_data": {
+        "user_id": null,
+        "role_id": null
+      },
+      "expected_status": 200
+    }
+  ],
+  "delete_user_role_assignment": [
+    {
+        "user_id": "123e4567-e89b-12d3-a456-426614174000",
+        "role_id": "123e4567-e89b-12d3-a456-426614174001",
+        "expected_status": 200
+    },
+    {
+        "user_id": "123e4567-e89b-12d3-a456-426614174000",
+        "role_id": "nonexistent-role-id",
+        "expected_status": 404
+    },
+    {
+        "user_id": "invalid-user-id",
+        "role_id": "123e4567-e89b-12d3-a456-426614174001",
+        "expected_status": 422
+    }
+],
+"list_user_roles": [
+    {
+        "page": 1,
+        "page_size": 20,
+        "expected_status": 200
+    },
+    {
+        "page": 2,
+        "page_size": 10,
+        "expected_status": 200
+    },
+    {
+        "page": 0,
+        "page_size": 20,
+        "expected_status": 422
+    },
+    {
+        "page": 1,
+        "page_size": 0,
+        "expected_status": 422
+    }
+],
+"get_audit_log_by_id": [
+  {
+    "log_id": "123e4567-e89b-12d3-a456-426614174000",
+    "expected_status": 200
+  },
+  {
+    "log_id": "00000000-0000-0000-0000-000000000000",
+    "expected_status": 404
+  },
+  {
+    "log_id": "invalid-uuid-format",
+    "expected_status": 422
+  }
+],
+"create_gym": [
+  {
+    "gym_data": {
+      "name": "Iron Temple",
+      "location": "San Diego",
+      "capacity": 150
+    },
+    "expected_status": 201
+  },
+  {
+    "gym_data": {
+      "name": "",
+      "location": "San Diego",
+      "capacity": 150
+    },
+    "expected_status": 422
+  },
+  {
+    "gym_data": {},
+    "expected_status": 422
+  }
+],
+"get_gym_by_id": [
+  {
+    "gym_id": "123e4567-e89b-12d3-a456-426614174000",
+    "expected_status": 200
+  },
+  {
+    "gym_id": "00000000-0000-0000-0000-000000000000",
+    "expected_status": 404
+  },
+  {
+    "gym_id": "invalid-uuid",
+    "expected_status": 422
+  }
+],
+"update_gym": [
+  {
+    "gym_id": "123e4567-e89b-12d3-a456-426614174000",
+    "payload": {
+      "name": "Updated Gym Name",
+      "city": "San Francisco",
+      "state": "CA",
+      "email": "updated@example.com"
+    },
+    "expected_status": 200
+  },
+  {
+    "gym_id": "00000000-0000-0000-0000-000000000000",
+    "payload": {
+      "name": "Ghost Gym"
+    },
+    "expected_status": 404
+  },
+  {
+    "gym_id": "invalid-uuid",
+    "payload": {
+      "name": "Invalid ID Test"
+    },
+    "expected_status": 422
+  }
+],
+"delete_gym": [
+  {
+    "gym_id": "123e4567-e89b-12d3-a456-426614174000",
+    "expected_status": 204
+  }
+
+],
+"list_gyms": [
+    {
+      "params": {},
+      "expected_status": 200
+    },
+    {
+      "params": {"city": "Los Angeles"},
+      "expected_status": 200
+    },
+    {
+      "params": {"state": "CA"},
+      "expected_status": 200
+    },
+    {
+      "params": {"zip_code": "90001"},
+      "expected_status": 200
+    },
+    {
+      "params": {"country": "USA", "is_active": true},
+      "expected_status": 200
+    },
+    {
+      "params": {"limit": 5, "offset": 0},
+      "expected_status": 200
+    },
+    {
+      "params": {"sort_by": "created_at", "sort_order": "desc"},
+      "expected_status": 200
+    },
+    {
+      "params": {"limit": 1000},
+      "expected_status": 422
+    },
+    {
+      "params": {"created_at_from": "invalid-date"},
+      "expected_status": 422
+    }
+  ],
+"invite_user_to_gym": [
+  {
+    "gym_id": "123e4567-e89b-12d3-a456-426614174000",
+    "user_id": "321e4567-e89b-12d3-a456-426614174999",
+    "expected_status": 200
+  },
+  {
+    "gym_id": "00000000-0000-0000-0000-000000000000",
+    "user_id": "321e4567-e89b-12d3-a456-426614174999",
+    "expected_status": 404
+  }
+],
+"list_users_for_gym": [
+  {
+    "gym_id": "123e4567-e89b-12d3-a456-426614174000",
+    "expected_status": 200
+  },
+  {
+    "gym_id": "00000000-0000-0000-0000-000000000000",
+    "expected_status": 404
+  },
+  {
+    "gym_id": "invalid-gym-id",
+    "expected_status": 422
+  }
+],
+"remove_user_from_gym": [
+  {
+    "gym_id": "123e4567-e89b-12d3-a456-426614174000",
+    "user_id": "987e6543-e21b-12d3-a456-426614174999",
+    "expected_status": 200
+  },
+  {
+    "gym_id": "123e4567-e89b-12d3-a456-426614174000",
+    "user_id": "00000000-0000-0000-0000-000000000000",
+    "expected_status": 404
+  },
+  {
+    "gym_id": "invalid-gym-id",
+    "user_id": "987e6543-e21b-12d3-a456-426614174999",
+    "expected_status": 422
+  },
+  {
+    "gym_id": "123e4567-e89b-12d3-a456-426614174000",
+    "user_id": "invalid-user-id",
+    "expected_status": 422
+  }
+],
+"create_gym_user": [
+  {
+    "user_data": {
+      "first_name": "New",
+      "last_name": "User",
+      "email": "newuse1@example.com",
+      "phone_number": "+1234567890",
+      "password": "SecurePass123"
+    },
+    "expected_status": 201
+  },
+  {
+    "user_data": {
+      "email": "existinguser@example.com",
+      "password": "SecurePass123"
+    },
+    "expected_status": 409
+  },
+  {
+    "user_data": {
+      "email": "invalidemail",
+      "password": "pass"
+    },
+    "expected_status": 422
+  }
+],
+"verify_gym_email": [
+  {
+    "token": "XCjgaNmqLooA87yUwmH-Rso_Yvoot-UYBPjbUM3D2aNuKMwmcAZkWKoajUDUJdGcPEPhwa0jEV0cudyeBxKUng",
+    "expected_status": 200,
+    "expected_message": null
+  },
+  {
+    "token": "expired-token-456",
+    "expected_status": 400,
+    "expected_message": "Token expired"
+  },
+  {
+    "token": "nonexistent-token-789",
+    "expected_status": 404,
+    "expected_message": "User not found"
+  },
+  {
+    "token": "",
+    "expected_status": 422,
+    "expected_message": null
+  }
+],
+"resend_verification_email": [
+    {
+      "email": "newuser2@example.com",
+      "expected_status": 200,
+      "expected_message": null
+    },
+    {
+      "email": "notfound@example.com",
+      "expected_status": 404,
+      "expected_message": "User not found"
+    },
+    {
+      "email": "alreadyverified@example.com",
+      "expected_status": 422,
+      "expected_message": "User is already verified"
+    }
+  ],
+ "request_password_reset": [
+    {
+      "email": "newuser2@example.com",
+      "expected_status": 200,
+      "expected_message": null
+    },
+    {
+      "email": "inactive@example.com",
+      "expected_status": 404,
+      "expected_message": "User not found or inactive"
+    },
+    {
+      "email": "invalidemail",
+      "expected_status": 422,
+      "expected_message": null
+    }
+  ],
+   "reset_gym_password": [
+    {
+      "token": "BuZWPY9I5IJV3gPNVxZfiam7hqSy9yN293aMyl-2tGmW6zCu7EsnJkXxmLK9WwyJ8w_qtonhNtAq1ojBWRjcqw",
+      "password": "SecurePass123!",
+      "cpassword": "SecurePass123!",
+      "expected_status": 200,
+      "expected_message": null
+    },
+    {
+      "token": "expired-token-123",
+      "password": "SecurePass123!",
+      "cpassword": "SecurePass123!",
+      "expected_status": 400,
+      "expected_message": "Reset token has expired"
+    },
+    {
+      "token": "invalid-token-456",
+      "password": "SecurePass123!",
+      "cpassword": "SecurePass123!",
+      "expected_status": 404,
+      "expected_message": "User not found"
+    },
+    {
+      "token": "valid-token-123",
+      "password": "short",
+      "cpassword": "short",
+      "expected_status": 422,
+      "expected_message": null
+    },
+    {
+      "token": "valid-token-123",
+      "password": "MismatchPass123",
+      "cpassword": "AnotherPass123",
+      "expected_status": 422,
+      "expected_message": null
+    }
+  ],
+"gym_login_credentials": [
+    {
+      "email": "user2@example.com",
+      "password": "SecurePass123!"
+    }
+  ],
+"update_gym_user_tests": [
+    {
+      "payload": {
+        "first_name": "UpdatedFirst",
+        "last_name": "UpdatedLast",
+        "phone_number": "+1234567890"
+      },
+      "expected_status": 200
+    },
+    {
+      "payload": {
+        "first_name": "A*500"
+      },
+      "expected_status": 422
+    }
+  ],
+"assign_gym_user_role": [
+    {
+      "user_id": "123e4567-e89b-12d3-a456-426614174000",
+      "role_id": "123e4567-e89b-12d3-a456-426614174001",
+      "expected_status": 201
+    },
+    {
+      "user_id": "invalid-uuid",
+      "role_id": "123e4567-e89b-12d3-a456-426614174001",
+      "expected_status": 422
+    },
+    {
+      "user_id": "123e4567-e89b-12d3-a456-426614174000",
+      "role_id": "nonexist-role-uuid",
+      "expected_status": 500
+    }
+  ],
+ "get_gym_user_role": [
+    {
+      "user_id": "123e4567-e89b-12d3-a456-426614174000",
+      "role_id": "123e4567-e89b-12d3-a456-426614174001",
+      "expected_status": 200
+    },
+    {
+      "user_id": "123e4567-e89b-12d3-a456-426614174000",
+      "role_id": "nonexistent-role-uuid",
+      "expected_status": 404
+    },
+    {
+      "user_id": "invalid-uuid",
+      "role_id": "123e4567-e89b-12d3-a456-426614174001",
+      "expected_status": 422
+    }
+  ],
+  "update_gym_user_role": [
+    {
+      "user_id": "123e4567-e89b-12d3-a456-426614174000",
+      "role_id": "123e4567-e89b-12d3-a456-426614174001",
+      "update_data": {
+        "user_id": "123e4567-e89b-12d3-a456-426614174000",
+        "role_id": "123e4567-e89b-12d3-a456-426614174002"
+      },
+      "expected_status": 200
+    },
+    {
+      "user_id": "123e4567-e89b-12d3-a456-426614174000",
+      "role_id": "nonexistent-role-uuid",
+      "update_data": {
+        "user_id": null,
+        "role_id": null
+      },
+      "expected_status": 404
+    },
+    {
+      "user_id": "invalid-uuid",
+      "role_id": "123e4567-e89b-12d3-a456-426614174001",
+      "update_data": {
+        "user_id": "invalid-uuid",
+        "role_id": null
+      },
+      "expected_status": 422
+    }
+  ],
+  "delete_gym_user_role": [
+    {
+      "user_id": "123e4567-e89b-12d3-a456-426614174000",
+      "role_id": "123e4567-e89b-12d3-a456-426614174001",
+      "expected_status": 200
+    }
+  ],
+ "list_gym_user_roles": [
+    {
+      "params": {},
+      "expected_status": 200
+    },
+    {
+      "params": {"page": 1, "page_size": 5},
+      "expected_status": 200
+    },
+    {
+      "params": {"page": 0, "page_size": -1},
+      "expected_status": 422
+    }
+  ]
+}
+
+
+
+
+
