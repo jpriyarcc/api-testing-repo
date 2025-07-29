@@ -1,6 +1,6 @@
 # API Testing Repo (Production Grade)
 
-This repository is a **production-grade API testing framework** using `pytest`.
+This repository is a **API testing framework** using `pytest`.
 
 ## Features
 - Organized folder structure
