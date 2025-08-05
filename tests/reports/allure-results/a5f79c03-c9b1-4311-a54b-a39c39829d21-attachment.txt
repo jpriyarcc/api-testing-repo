@@ -1,0 +1,2 @@
+ERROR    utils.api_helper1:api_helper1.py:237 Update user failed: 'dict' object has no attribute 'json'
+ERROR    test_management_user:test_management_user.py:198 Update user test failed: 'dict' object has no attribute 'json'

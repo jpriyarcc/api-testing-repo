@@ -1,0 +1,2 @@
+ERROR    test_management_user:test_management_user.py:186 Get user by ID test failed: User ID is not set in shared_data
+assert None

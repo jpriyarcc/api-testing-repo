@@ -1,0 +1,1 @@
+ERROR    test_management_user:test_management_user.py:198 Update user test failed: 'full_name'

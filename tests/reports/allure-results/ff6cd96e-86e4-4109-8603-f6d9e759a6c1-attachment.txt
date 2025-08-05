@@ -1,0 +1,1 @@
+ERROR    utils.api_helper1:api_helper1.py:177 Logout failed: 'dict' object has no attribute 'json'

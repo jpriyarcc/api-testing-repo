@@ -1,0 +1,2 @@
+ERROR    test_management_user:test_management_user.py:26 Register user test failed: assert False
+ +  where False = isinstance(<Response [201]>, dict)

@@ -1,0 +1,1 @@
+ERROR    conftest:conftest.py:114 Gym login fixture setup failed: 'login_gym_user'

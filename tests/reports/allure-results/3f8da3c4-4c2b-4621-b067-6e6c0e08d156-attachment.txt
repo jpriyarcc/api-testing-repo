@@ -1,0 +1,2 @@
+ERROR    tests.utils.api_client:api_client.py:54 API Error [400]: {'success': False, 'message': 'User is already verified', 'correlation_id': '30d44c82-7df0-479d-85fb-ea085eb2afa9', 'error_code': 'E422'} | Exception: 400 Client Error: Bad Request for url: http://localhost:8000/api/v1/gym/auth/resend-verification
+ERROR    tests.utils.api_helper1:api_helper1.py:809 Failed to resend verification email: 400 Client Error: Bad Request for url: http://localhost:8000/api/v1/gym/auth/resend-verification

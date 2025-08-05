@@ -1,0 +1,1 @@
+ERROR    tests.utils.api_helper1:api_helper1.py:902 Failed to log out gym user: 'dict' object has no attribute 'status_code'

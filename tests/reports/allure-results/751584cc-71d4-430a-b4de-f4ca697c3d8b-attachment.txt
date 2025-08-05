@@ -1,0 +1,3 @@
+ERROR    tests.utils.api_client:api_client.py:54 API Error [401]: {'success': False, 'message': 'Incorrect email or password', 'correlation_id': '530513d9-a0a1-46ef-ab6f-fd63bb0a6170', 'error_code': 'E401'} | Exception: 401 Client Error: Unauthorized for url: http://localhost:8000/api/v1/gym/auth/login
+ERROR    tests.utils.api_helper1:api_helper1.py:862 Failed to log in gym user: 401 Client Error: Unauthorized for url: http://localhost:8000/api/v1/gym/auth/login
+ERROR    conftest:conftest.py:114 Gym login fixture setup failed: 401 Client Error: Unauthorized for url: http://localhost:8000/api/v1/gym/auth/login

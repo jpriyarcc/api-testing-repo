@@ -1,0 +1,2 @@
+ERROR    utils.api_client:api_client.py:54 API Error [409]: {'success': False, 'message': 'Email is already registered', 'correlation_id': '61e3e3b1-1c9e-4c96-95f8-b532e9c29cba', 'error_code': 'E409'} | Exception: 409 Client Error: Conflict for url: http://localhost:8000/api/v1/management/auth/register
+ERROR    utils.api_helper1:api_helper1.py:39 User registration failed: 409 Client Error: Conflict for url: http://localhost:8000/api/v1/management/auth/register

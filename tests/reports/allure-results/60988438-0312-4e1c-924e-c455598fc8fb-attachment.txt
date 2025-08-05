@@ -1,0 +1,2 @@
+ERROR    utils.api_helper1:api_helper1.py:196 Fetch current user failed: 'dict' object has no attribute 'json'
+ERROR    test_management_user:test_management_user.py:167 Get current user test failed: 'dict' object has no attribute 'json'

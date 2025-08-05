@@ -1,0 +1,2 @@
+ERROR    test_management_user:test_management_user.py:125 Logout user test failed: Access token is missing!
+assert None

@@ -1,0 +1,2 @@
+ERROR    utils.api_helper1:api_helper1.py:257 Delete user failed: 'dict' object has no attribute 'status_code'
+ERROR    test_management_user:test_management_user.py:219 Delete user test failed: 'dict' object has no attribute 'status_code'

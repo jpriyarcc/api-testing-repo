@@ -1,0 +1,1 @@
+ERROR    test_management_user:test_management_user.py:103 Login test failed: assert 'data' in <Response [200]>
