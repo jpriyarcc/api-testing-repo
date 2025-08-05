@@ -1,0 +1,2 @@
+ERROR    utils.api_client:api_client.py:58 API Error [401]: {'success': False, 'message': 'Authorization header missing', 'correlation_id': '36e2fd92-f974-4239-a9f1-cd6e827bd625', 'error_code': 'E401'} | Exception: 401 Client Error: Unauthorized for url: http://localhost:8000/api/v1/management/users
+ERROR    utils.api_helper1:api_helper1.py:275 List management users failed: 401 Client Error: Unauthorized for url: http://localhost:8000/api/v1/management/users

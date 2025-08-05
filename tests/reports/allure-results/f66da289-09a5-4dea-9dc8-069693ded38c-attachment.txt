@@ -1,0 +1,2 @@
+ERROR    utils.api_client:api_client.py:54 API Error [400]: {'success': False, 'message': 'User is already verified', 'correlation_id': '88ccb59b-475d-4e32-b1eb-9c0955099268', 'error_code': 'E422'} | Exception: 400 Client Error: Bad Request for url: http://localhost:8000/api/v1/management/auth/resend-verification
+ERROR    utils.api_helper1:api_helper1.py:76 Resend verification failed: 400 Client Error: Bad Request for url: http://localhost:8000/api/v1/management/auth/resend-verification

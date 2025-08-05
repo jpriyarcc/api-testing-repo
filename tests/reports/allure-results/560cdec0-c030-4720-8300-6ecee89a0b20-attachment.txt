@@ -1,0 +1,2 @@
+ERROR    utils.api_client:api_client.py:58 API Error [401]: {'success': False, 'message': 'Authorization header missing', 'correlation_id': '333e3d7d-9917-42df-9cd5-dbae1c3397e8', 'error_code': 'E401'} | Exception: 401 Client Error: Unauthorized for url: http://localhost:8000/api/v1/management/user/None
+ERROR    utils.api_helper1:api_helper1.py:235 Update user failed: 401 Client Error: Unauthorized for url: http://localhost:8000/api/v1/management/user/None

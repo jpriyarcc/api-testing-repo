@@ -1,0 +1,2 @@
+ERROR    utils.api_client:api_client.py:54 API Error [422]: {'detail': [{'type': 'missing', 'loc': ['query', 'token'], 'msg': 'Field required', 'input': None}]} | Exception: 422 Client Error: Unprocessable Entity for url: http://localhost:8000/api/v1/management/auth/password-reset
+ERROR    utils.api_helper1:api_helper1.py:116 Reset password failed: 422 Client Error: Unprocessable Entity for url: http://localhost:8000/api/v1/management/auth/password-reset

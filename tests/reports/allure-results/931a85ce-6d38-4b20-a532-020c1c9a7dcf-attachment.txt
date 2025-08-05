@@ -1,0 +1,2 @@
+ERROR    utils.api_client:api_client.py:54 API Error [404]: {'success': False, 'message': 'User not found or inactive', 'correlation_id': '399c510b-c7aa-4f36-a47e-2fc501cea1a5', 'error_code': 'E404'} | Exception: 404 Client Error: Not Found for url: http://localhost:8000/api/v1/gym/auth/forgot-password
+ERROR    utils.api_helper1:api_helper1.py:824 Failed to request password reset: 404 Client Error: Not Found for url: http://localhost:8000/api/v1/gym/auth/forgot-password

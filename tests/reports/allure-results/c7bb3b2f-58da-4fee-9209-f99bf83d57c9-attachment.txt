@@ -1,0 +1,2 @@
+ERROR    utils.api_client:api_client.py:54 API Error [401]: {'success': False, 'message': 'Incorrect email or password', 'correlation_id': '4e32e555-d01f-4b25-879b-fb4332b8d931', 'error_code': 'E401'} | Exception: 401 Client Error: Unauthorized for url: http://localhost:8000/api/v1/gym/auth/login
+ERROR    utils.api_helper1:api_helper1.py:862 Failed to log in gym user: 401 Client Error: Unauthorized for url: http://localhost:8000/api/v1/gym/auth/login

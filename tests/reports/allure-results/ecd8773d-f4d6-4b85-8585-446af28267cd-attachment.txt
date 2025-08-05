@@ -1,0 +1,2 @@
+ERROR    utils.api_client:api_client.py:58 API Error [401]: {'success': False, 'message': 'Authorization header missing', 'correlation_id': 'e441daf5-f5b4-4eb5-acab-5c1e847b5b12', 'error_code': 'E401'} | Exception: 401 Client Error: Unauthorized for url: http://localhost:8000/api/v1/management/auth/logout
+ERROR    utils.api_helper1:api_helper1.py:175 Logout failed: 401 Client Error: Unauthorized for url: http://localhost:8000/api/v1/management/auth/logout

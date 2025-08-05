@@ -1,0 +1,1 @@
+ERROR    utils.api_helper1:api_helper1.py:95 Forgot password request failed: 'dict' object has no attribute 'json'

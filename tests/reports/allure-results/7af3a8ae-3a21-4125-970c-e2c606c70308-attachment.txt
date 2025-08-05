@@ -1,0 +1,1 @@
+ERROR    utils.api_helper1:api_helper1.py:794 Failed to verify gym email: 'dict' object has no attribute 'status_code'

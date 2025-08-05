@@ -1,0 +1,2 @@
+ERROR    utils.api_client:api_client.py:58 API Error [400]: {'success': False, 'message': 'Invalid verification token', 'correlation_id': '3f5ec562-8b7b-46c9-8ee2-891d3d724532', 'error_code': 'E422'} | Exception: 400 Client Error: Bad Request for url: http://localhost:8000/api/v1/management/auth/verify-email?token=valid_or_invalid_token_here
+ERROR    utils.api_helper1:api_helper1.py:56 Email verification failed: 400 Client Error: Bad Request for url: http://localhost:8000/api/v1/management/auth/verify-email?token=valid_or_invalid_token_here

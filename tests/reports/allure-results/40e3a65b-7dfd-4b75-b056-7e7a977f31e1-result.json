@@ -1,0 +1,1 @@
+{"name": "test_register_user", "status": "passed", "start": 1754044477412, "stop": 1754045234556, "uuid": "b6204dd9-9e0e-4887-8b74-9a2c23c29845", "testCaseId": "af195a5aaa60096fa9e23057fd7c31e4", "fullName": "tests.management_user.TestManagementUserAuth#test_register_user", "titlePath": ["tests", "management_user.py", "TestManagementUserAuth"]}

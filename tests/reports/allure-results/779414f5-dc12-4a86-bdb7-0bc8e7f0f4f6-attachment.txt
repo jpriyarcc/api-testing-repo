@@ -1,0 +1,2 @@
+ERROR    utils.api_client:api_client.py:54 API Error [409]: {'success': False, 'message': 'Email is already registered', 'correlation_id': '585d95be-dc87-4938-9bea-7c9137055b03', 'error_code': 'E409'} | Exception: 409 Client Error: Conflict for url: http://localhost:8000/api/v1/gym/auth/register
+ERROR    utils.api_helper1:api_helper1.py:779 Failed to create gym user: 409 Client Error: Conflict for url: http://localhost:8000/api/v1/gym/auth/register
