@@ -1,7 +1,6 @@
 import logging
-from typing import Optional
-from utils.api_client import APIClient
-from utils.api_data import ManagementUserCreate
+from tests.utils.api_client import APIClient
+from tests.utils.api_data import ManagementUserCreate
 
 log = logging.getLogger(__name__)
 
@@ -34,6 +33,7 @@ class ManagementUserAPIHandler(APIClient):
         payload = user.to_dict()
         try:
             return self.post(endpoint, json=payload)
+
         except Exception as e:
             log.error(f"User registration failed: {e}")
             raise
@@ -171,7 +171,7 @@ class ManagementUserAPIHandler(APIClient):
         log.info(f"Logging out user at endpoint: {endpoint}")
         try:
             resp = self.get(endpoint, token=token)
-            return resp.json()
+            return resp
         except Exception as e:
             log.error(f"Logout failed: {e}")
             raise
@@ -190,7 +190,7 @@ class ManagementUserAPIHandler(APIClient):
         log.info(f"Fetching current user details at endpoint: {endpoint}")
         try:
             resp = self.get(endpoint, token=token)
-            return resp.json()
+            return resp
         except Exception as e:
             log.error(f"Fetch current user failed: {e}")
             raise
@@ -210,7 +210,7 @@ class ManagementUserAPIHandler(APIClient):
         log.info(f"Fetching user by ID: {user_id}")
         try:
             resp = self.get(endpoint, token=token)
-            return resp.json()
+            return resp
         except Exception as e:
             log.error(f"Fetch user by ID failed: {e}")
             raise
@@ -231,7 +231,7 @@ class ManagementUserAPIHandler(APIClient):
         log.info(f"Updating user ID: {user_id} with data: {update_payload}")
         try:
             resp = self.put(endpoint, json=update_payload, token=token)
-            return resp.json()
+            return resp
         except Exception as e:
             log.error(f"Update user failed: {e}")
             raise
@@ -251,7 +251,7 @@ class ManagementUserAPIHandler(APIClient):
         log.info(f"Deleting user ID: {user_id}")
         try:
             resp = self.delete(endpoint, token=token)
-            return resp.status_code
+            return resp
         except Exception as e:
             log.error(f"Delete user failed: {e}")
             raise
@@ -896,8 +896,9 @@ class ManagementUserAPIHandler(APIClient):
         log.info(f"Logging out gym user | Endpoint: {endpoint}")
         try:
             resp = self.get(endpoint, token=token)
-            log.info(f"Gym user logout response | Status: {resp.status_code}")
-            return resp.status_code
+            log.info(f"Gym user logout response: {resp}")
+            return resp
+
         except Exception as e:
             log.error(f"Failed to log out gym user: {e}")
             raise

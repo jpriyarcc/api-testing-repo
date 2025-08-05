@@ -1,7 +1,7 @@
 {
   "register_user": [
     {
-      "email": "use5@example.com",
+      "email": "use9@example.com",
       "password": "StrongPass456!",
       "expected_status": 201,
       "expected_error_code": null
@@ -21,7 +21,7 @@
   ],
   "verify_email": [
     {
-      "token": "689B7H55YbaCmMXmtvjuaiztXaq0-riQuDW8sCn86UjyyUvfP5jtNAEvAtZF5_yHtRZhR0OyxMoC6aL53LgMqg",
+      "token": "bM5MdEXs11zN4G7J_LdtF03E7MM0jIfUZOf2S_7xhHppz1ux7Ul-tCJJE57Tg6Yfo2f3CWjh9_Z69N3CdP25GA",
       "expected_status": 200,
       "expected_key": "status",
       "expected_value": 200
@@ -67,7 +67,7 @@
   ],
   "forgot_password": [
     {
-      "email": "use5@example.com",
+      "email": "user7@example.com",
       "expected_status": 200,
       "expected_key": "message",
       "expected_value": "Password reset link sent successfully"
@@ -113,7 +113,7 @@
   ],
   "login": [
     {
-      "email": "user2@example.com",
+      "email": "user8@example.com",
       "password": "SecurePass123!",
       "expected_status": 200
     }
@@ -697,7 +697,7 @@
     "user_data": {
       "first_name": "New",
       "last_name": "User",
-      "email": "newuse1@example.com",
+      "email": "newuse2@example.com",
       "phone_number": "+1234567890",
       "password": "SecurePass123"
     },
@@ -720,7 +720,7 @@
 ],
 "verify_gym_email": [
   {
-    "token": "XCjgaNmqLooA87yUwmH-Rso_Yvoot-UYBPjbUM3D2aNuKMwmcAZkWKoajUDUJdGcPEPhwa0jEV0cudyeBxKUng",
+    "token": "mJjn9h5K2LdiQKaqTi0Ha6hGrFDVDdXmVa7T4ILERXDxFi_rYrfcYzEVZqJXxUrnwScZCan5Z_dE6uBPm8iyUQ",
     "expected_status": 200,
     "expected_message": null
   },
@@ -742,7 +742,7 @@
 ],
 "resend_verification_email": [
     {
-      "email": "newuser2@example.com",
+      "email": "newuse2@example.com",
       "expected_status": 200,
       "expected_message": null
     },
@@ -759,7 +759,7 @@
   ],
  "request_password_reset": [
     {
-      "email": "newuser2@example.com",
+      "email": "newuse2@example.com",
       "expected_status": 200,
       "expected_message": null
     },
@@ -776,7 +776,7 @@
   ],
    "reset_gym_password": [
     {
-      "token": "BuZWPY9I5IJV3gPNVxZfiam7hqSy9yN293aMyl-2tGmW6zCu7EsnJkXxmLK9WwyJ8w_qtonhNtAq1ojBWRjcqw",
+      "token": "eIzKA-AX_cmP5DP6k1lHeyK8LEqE_POPBWzv-DCwmI1XYHlu8qe9l7ew1035Vydu2kOnaTl3dRwVjIh0EzplzQ",
       "password": "SecurePass123!",
       "cpassword": "SecurePass123!",
       "expected_status": 200,
@@ -811,10 +811,10 @@
       "expected_message": null
     }
   ],
-"gym_login_credentials": [
+"login_gym_user": [
     {
-      "email": "user2@example.com",
-      "password": "SecurePass123!"
+      "email": "john.doe2@gym.com",
+      "password": "StrongPass123!"
     }
   ],
 "update_gym_user_tests": [

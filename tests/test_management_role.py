@@ -1,85 +1,96 @@
-import unittest
-import os
-import json
 import logging
-from utils.api_helper1 import ManagementUserAPIHandler
-from tests.test_management_user import TestManagementUserAuth
+import pytest
 
 log = logging.getLogger(__name__)
 
 
-class TestManagementRole(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
+class TestManagementUserRoleAssignment:
+
+    def test_list_user_roles(self, api, auth_tokens):
         """
-        Set up API handler and reuse access token from TestManagementUserAuth.
+        Test retrieving the list of user roles.
         """
-        cls.api = ManagementUserAPIHandler(base_url="http://localhost:8000")
-
-        #  Reuse access token from TestManagementUserAuth
-        if not TestManagementUserAuth.access_token:
-            raise ValueError("Access token not set. Run TestManagementUserAuth tests first.")
-        cls.access_token = TestManagementUserAuth.access_token
-
-        # Load test data
-        json_path = os.path.join(os.path.dirname(__file__), '../utils/test_data.json')
-        with open(json_path, "r") as file:
-            cls.test_data = json.load(file)
-
-        cls.role_id = None
-
-    def test_list_roles(self):
-        """Test listing all management roles."""
         try:
-            response = self.api.list_roles(token=self.access_token)
-            self.assertIsInstance(response, dict)
-            self.assertIn("data", response)
-            self.assertIsInstance(response["data"], list)
-            log.info("Roles listed successfully.")
+            token = auth_tokens["access_token"]
+            response = api.list_user_roles(token=token)
+            assert "data" in response
+            assert isinstance(response["data"], list)
+            log.info("User roles listed successfully.")
         except Exception as e:
-            self.fail(f"List roles test failed: {e}")
+            log.error(f"Failed to list user roles: {e}")
+            pytest.fail(str(e))
 
-    def test_create_role(self):
-        """Test creating a new management role."""
+    def test_assign_user_role(self, api, auth_tokens, setup_user, setup_role):
+        """
+        Test assigning a role to a user.
+        """
         try:
-            case = self.test_data["create_role"][0]
-            response = self.api.create_role(token=self.access_token, role_data=case["role_data"])
-            self.assertIsInstance(response, dict)
-            self.assertIn("data", response)
-            self.assertEqual(response["data"]["name"], case["role_data"]["name"])
-
-            # Store created role_id for later tests
-            TestManagementRole.role_id = response["data"]["id"]
-            log.info(f"Role created successfully with ID: {self.role_id}")
+            token = auth_tokens["access_token"]
+            payload = {
+                "user_id": setup_user.user_id,
+                "role_id": setup_role
+            }
+            response = api.assign_user_role(token=token, payload=payload)
+            assert "data" in response
+            assert response["data"]["user_id"] == payload["user_id"]
+            assert response["data"]["role_id"] == payload["role_id"]
+            log.info(f"Role assigned successfully to user: {payload['user_id']}")
         except Exception as e:
-            self.fail(f"Create role test failed: {e}")
+            log.error(f"Failed to assign user role: {e}")
+            pytest.fail(str(e))
 
-    def test_update_role_by_id(self):
-        """Test updating an existing role by ID."""
+    def test_get_user_role_assignment(self, api, auth_tokens, setup_user, setup_role):
+        """
+        Test retrieving a specific user-role assignment.
+        """
         try:
-            self.assertIsNotNone(self.role_id, "Role ID is missing from create role step.")
-            case = self.test_data["update_role"][0]
-            response = self.api.update_role_by_id(
-                token=self.access_token,
-                role_id=self.role_id,
-                update_data=case["update_data"]
+            token = auth_tokens["access_token"]
+            response = api.get_user_role_assignment(
+                token=token,
+                user_id=setup_user.user_id,
+                role_id=setup_role
             )
-            self.assertIsInstance(response, dict)
-            self.assertEqual(response["data"]["name"], case["update_data"]["name"])
-            log.info(f"Role updated successfully: {self.role_id}")
+            assert "data" in response
+            assert response["data"]["user_id"] == setup_user.user_id
+            assert response["data"]["role_id"] == setup_role
+            log.info(f"Fetched user-role assignment successfully for user: {setup_user.user_id}")
         except Exception as e:
-            self.fail(f"Update role test failed: {e}")
+            log.error(f"Failed to get user-role assignment: {e}")
+            pytest.fail(str(e))
 
-    def test_delete_role_by_id(self):
-        """Test deleting a role by ID."""
+    def test_update_user_role_assignment(self, api, auth_tokens, setup_user, setup_role, test_data):
+        """
+        Test updating a user-role assignment.
+        """
         try:
-            self.assertIsNotNone(self.role_id, "Role ID is missing from create role step.")
-            status_code = self.api.delete_role_by_id(token=self.access_token, role_id=self.role_id)
-            self.assertEqual(status_code, 200)
-            log.info(f"Role deleted successfully: {self.role_id}")
+            token = auth_tokens["access_token"]
+            update_data = test_data["update_user_role_assignment"][0]["payload"]
+            response = api.update_user_role_assignment(
+                token=token,
+                user_id=setup_user.user_id,
+                role_id=setup_role,
+                update_data=update_data
+            )
+            assert "data" in response
+            assert response["data"]["role_id"] == setup_role
+            log.info(f"Updated user-role assignment successfully for user: {setup_user.user_id}")
         except Exception as e:
-            self.fail(f"Delete role test failed: {e}")
+            log.error(f"Failed to update user-role assignment: {e}")
+            pytest.fail(str(e))
 
-
-if __name__ == "__main__":
-    unittest.main()
+    def test_delete_user_role_assignment(self, api, auth_tokens, setup_user, setup_role):
+        """
+        Test deleting a user-role assignment.
+        """
+        try:
+            token = auth_tokens["access_token"]
+            status_code = api.delete_user_role_assignment(
+                token=token,
+                user_id=setup_user.user_id,
+                role_id=setup_role
+            )
+            assert status_code == 200
+            log.info(f"Deleted user-role assignment successfully for user: {setup_user.user_id}")
+        except Exception as e:
+            log.error(f"Failed to delete user-role assignment: {e}")
+            pytest.fail(str(e))
